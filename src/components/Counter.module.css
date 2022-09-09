@@ -4,7 +4,8 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    max-width: 250px;
+    width: 280px;
+    justify-content: space-between;
 }
 
 .counterButtonGroup {
@@ -28,8 +29,55 @@
     text-align: center;
 }
 
+.counterInputError {
+    border: none;
+    background-color: #61dafb;
+    height: 100px;
+    width: 100%;
+    border-radius: 5px;
+    padding: 0;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+}
+
 .counterInputEnd {
     color: red;
+}
+
+.counterInputGroup {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #61dafb;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.counterInputRow {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 20px;
+}
+
+.counterInputRow input {
+    flex:1;
+    border: #61dafb;
+    height: 30px;
+    max-width: 120px;
+    border-radius: 5px;
+    padding: 0;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.counterInputRow span {
+    color: #61dafb;
+    font-weight: bold;
 }
 
 .counterButton {
@@ -40,4 +88,9 @@
     font-weight: bold;
     display: flex;
     align-items: center;
+}
+
+.error {
+    border: 1px solid red;
+    background: red;
 }

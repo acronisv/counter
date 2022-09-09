@@ -3,7 +3,7 @@ import style from './Counter.module.css'
 type ButtonPropsType = {
     name: string,
     callback: () => void
-    disabled: boolean
+    disabled?: boolean
 }
 
 export const Button = (props: ButtonPropsType) => {
