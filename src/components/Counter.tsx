@@ -6,6 +6,7 @@ type CounterPropsType = {
     minValue: number
     maxValue: number
     reset: boolean
+    active: boolean
     setReset: (state: boolean) => void
     error: boolean
 }
@@ -36,12 +37,38 @@ export const Counter = (props: CounterPropsType) => {
         <div className={style.counterWrapper}>
             {props.error
                 ? <input value={'Incorrect value'} className={style.counterInputError} type="text"/>
-                : <input value={value} className={className} type="text"/>
+                : props.active ? <input value={value} className={className} type="text"/>
+                    : <input value={'Enter values and press set'} className={style.counterInputError} type="text"/>
             }
-            <div className={style.counterButtonGroup}>
-                <Button name={"inc"} callback={incButton} disabled={!props.reset}/>
-                <Button name={"reset"} callback={resetButton} disabled={props.reset}/>
-            </div>
+            {props.active
+                ? <div className={style.counterButtonGroup}>
+                    <Button name={"inc"} callback={incButton} disabled={!props.reset}/>
+                    <Button name={"reset"} callback={resetButton} disabled={props.reset}/>
+                </div>
+                : <div className={style.counterButtonGroup}>
+                    <Button name={"inc"} callback={() => {
+                    }} disabled={true}/>
+                    <Button name={"reset"} callback={() => {
+                    }} disabled={true}/>
+                </div>
+            }
+
         </div>
     )
 }
+
+
+// {props.error
+//     ? <input value={'Incorrect value'} className={style.counterInputError} type="text"/>
+//     : <input value={value} className={className} type="text"/>
+// }
+// {props.active
+//     ? <div className={style.counterButtonGroup}>
+//         <Button name={"inc"} callback={incButton} disabled={!props.reset}/>
+//         <Button name={"reset"} callback={resetButton} disabled={props.reset}/>
+//     </div>
+//     : <div className={style.counterButtonGroup}>
+//         <Button name={"inc"} callback={()=>{}} disabled={true}/>
+//         <Button name={"reset"}callback={()=>{}} disabled={true}/>
+//     </div>
+// }

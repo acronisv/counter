@@ -7,7 +7,7 @@ type ButtonPropsType = {
 }
 
 export const Button = (props: ButtonPropsType) => {
-const {disabled, callback, name} = props
+    const {disabled, callback, name} = props
 
     const onClickButtonHandler = () => {
         callback()
