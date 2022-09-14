@@ -13,7 +13,6 @@ type CounterSettingsPropsType = {
     setError: (val: boolean) => void
 }
 
-
 export const CounterSettings = (props: CounterSettingsPropsType) => {
 
     const [disabled, setDisabled] = useState<boolean>(true)
@@ -29,7 +28,7 @@ export const CounterSettings = (props: CounterSettingsPropsType) => {
 
     const onChangeMinInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         props.setActive(false)
-        isNaN(+e.currentTarget.value) ? console.log('nono') : props.defineMinValue(+e.currentTarget.value)
+        props.defineMinValue(+e.currentTarget.value)
         if (+e.currentTarget.value >= 0 && +e.currentTarget.value < props.maxValue) {
             setDisabled(false)
             props.setError(false)
@@ -41,7 +40,7 @@ export const CounterSettings = (props: CounterSettingsPropsType) => {
 
     const onChangeMaxInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         props.setActive(false)
-        isNaN(+e.currentTarget.value) ? console.log('nono') : props.defineMaxValue(+e.currentTarget.value)
+        props.defineMaxValue(+e.currentTarget.value)
         if (+e.currentTarget.value > props.minValue) {
             setDisabled(false)
             props.setError(false)

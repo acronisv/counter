@@ -19,8 +19,8 @@ export const Counter = (props: CounterPropsType) => {
 
     const incButton = () => {
         if (value < props.maxValue) {
-            setValue(++value)
-            if (value === props.maxValue) {
+            setValue(value + 1)
+            if (value + 1 === props.maxValue) {
                 props.setReset(false)
             }
         }
@@ -31,44 +31,35 @@ export const Counter = (props: CounterPropsType) => {
         props.setReset(true)
     }
 
-    let className = value === props.maxValue ? `${style.counterInput} ${style.counterInputEnd}` : style.counterInput
+    let className = value === props.maxValue && props.active
+        ? `${style.counterInput} ${style.counterInputEnd}`
+        : !props.active || props.error
+            ? `${style.counterInput} ${style.counterInputDefault}`
+            : style.counterInput
+
+    let inputValue = props.error
+        ? 'Incorrect value'
+        : props.active
+            ? value
+            : 'Enter values and press set'
 
     return (
         <div className={style.counterWrapper}>
-            {props.error
-                ? <input value={'Incorrect value'} className={style.counterInputError} type="text"/>
-                : props.active ? <input value={value} className={className} type="text"/>
-                    : <input value={'Enter values and press set'} className={style.counterInputError} type="text"/>
-            }
-            {props.active
-                ? <div className={style.counterButtonGroup}>
-                    <Button name={"inc"} callback={incButton} disabled={!props.reset}/>
-                    <Button name={"reset"} callback={resetButton} disabled={props.reset}/>
-                </div>
-                : <div className={style.counterButtonGroup}>
-                    <Button name={"inc"} callback={() => {
-                    }} disabled={true}/>
-                    <Button name={"reset"} callback={() => {
-                    }} disabled={true}/>
-                </div>
-            }
-
+            <input value={inputValue} className={className} type="text"/>
+            <div className={style.counterButtonGroup}>
+                <Button name={"inc"}
+                        callback={incButton}
+                        disabled={props.active
+                            ? !props.reset
+                            : true}
+                />
+                <Button name={"reset"}
+                        callback={resetButton}
+                        disabled={props.active
+                            ? props.reset
+                            : true}
+                />
+            </div>
         </div>
     )
 }
-
-
-// {props.error
-//     ? <input value={'Incorrect value'} className={style.counterInputError} type="text"/>
-//     : <input value={value} className={className} type="text"/>
-// }
-// {props.active
-//     ? <div className={style.counterButtonGroup}>
-//         <Button name={"inc"} callback={incButton} disabled={!props.reset}/>
-//         <Button name={"reset"} callback={resetButton} disabled={props.reset}/>
-//     </div>
-//     : <div className={style.counterButtonGroup}>
-//         <Button name={"inc"} callback={()=>{}} disabled={true}/>
-//         <Button name={"reset"}callback={()=>{}} disabled={true}/>
-//     </div>
-// }

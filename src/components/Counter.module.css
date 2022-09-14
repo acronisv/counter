@@ -29,16 +29,7 @@
     text-align: center;
 }
 
-.counterInputError {
-    border: none;
-    background-color: #61dafb;
-    height: 100px;
-    width: 100%;
-    border-radius: 5px;
-    padding: 0;
-    margin-bottom: 10px;
-    font-weight: bold;
-    text-align: center;
+.counterInputDefault {
     font-size: 20px;
 }
 
@@ -51,7 +42,6 @@
     flex-direction: column;
     border: 2px solid #61dafb;
     border-radius: 5px;
-    display: flex;
     justify-content: space-evenly;
     padding: 10px;
 }
@@ -63,7 +53,7 @@
 }
 
 .counterInputRow input {
-    flex:1;
+    flex: 1;
     border: #61dafb;
     height: 30px;
     max-width: 120px;
