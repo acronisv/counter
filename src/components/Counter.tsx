@@ -1,34 +1,55 @@
 import {Button} from "./Button";
 import style from './Counter.module.css'
-import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../state/store";
+import {setResetAC} from "../state/status-reducer";
+import {counterStateType, incValueAC} from "../state/counter-reducer";
 
 export const Counter = () => {
-
-    let [value, setValue] = useState<number>(0)
-    let [disabled, setDisabled] = useState<boolean>(false)
+    const dispatch = useDispatch()
+    let counter = useSelector<AppRootStateType, counterStateType>(state => state.counter)
 
     const incButton = () => {
-        if (value < 5) {
-            setValue(++value)
-            if (value === 5) {
-                setDisabled(true)
+        if (counter.count < counter.maxValue) {
+            dispatch(incValueAC())
+            if (counter.count + 1 === counter.maxValue) {
+                dispatch(setResetAC(false))
             }
         }
     }
 
     const resetButton = () => {
-        setValue(0)
-        setDisabled(false)
+        dispatch(setResetAC(true))
     }
 
-    let className = value === 5 ? `${style.counterInput} ${style.counterInputEnd}` : style.counterInput
+    let className = counter.count === counter.maxValue && counter.active
+        ? `${style.counterInput} ${style.counterInputEnd}`
+        : !counter.active || counter.error
+            ? `${style.counterInput} ${style.counterInputDefault}`
+            : style.counterInput
+
+    let inputValue = counter.error
+        ? 'Incorrect value'
+        : counter.active
+            ? counter.count
+            : 'Enter values and press set'
 
     return (
         <div className={style.counterWrapper}>
-            <input value={value} className={className} type="text"/>
+            <input value={inputValue} className={className} type="text"/>
             <div className={style.counterButtonGroup}>
-                <Button name={"inc"} callback={incButton} disabled={disabled}/>
-                <Button name={"reset"} callback={resetButton} disabled={!disabled}/>
+                <Button name={"inc"}
+                        callback={incButton}
+                        disabled={counter.active
+                            ? !counter.reset
+                            : true}
+                />
+                <Button name={"reset"}
+                        callback={resetButton}
+                        disabled={counter.active
+                            ? counter.reset
+                            : true}
+                />
             </div>
         </div>
     )

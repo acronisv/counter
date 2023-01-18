@@ -24,6 +24,11 @@
   color: white;
 }
 
+.Counter-wrap {
+  display: flex;
+  column-gap: 30px;
+}
+
 .App-link {
   color: #61dafb;
 }
