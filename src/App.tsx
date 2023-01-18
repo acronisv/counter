@@ -1,43 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
 import {Counter} from "./components/Counter";
 import {CounterSettings} from "./components/CounterSettings";
 
 function App() {
-    let [minValue, setMinValue] = useState<number>(JSON.parse(localStorage.getItem('minValue') || '0'))
-    let [maxValue, setMaxValue] = useState<number>(JSON.parse(localStorage.getItem('maxValue') || '0'))
-    let [active, setActive] = useState<boolean>(false)
-    let [error, setError] = useState<boolean>(false)
-    let [reset, setReset] = useState<boolean>(true)
-
-    const defineMinValue = (val: number) => {
-        setMinValue(val)
-    }
-
-    const defineMaxValue = (val: number) => {
-        setMaxValue(val)
-    }
-
     return (
         <div className="App">
             <header className="App-header">
                 <div className="Counter-wrap">
-                    <CounterSettings minValue={minValue}
-                                     maxValue={maxValue}
-                                     defineMinValue={(val) => defineMinValue(val)}
-                                     defineMaxValue={(val) => defineMaxValue(val)}
-                                     setActive={setActive}
-                                     setReset={setReset}
-                                     error={error}
-                                     setError={setError}
-                    />
-                    <Counter minValue={minValue}
-                             maxValue={maxValue}
-                             active={active}
-                             reset={reset}
-                             setReset={setReset}
-                             error={error}
-                    />
+                    <CounterSettings/>
+                    <Counter/>
                 </div>
             </header>
         </div>

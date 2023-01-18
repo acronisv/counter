@@ -1,46 +1,37 @@
 import {Button} from "./Button";
 import style from './Counter.module.css'
-import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../state/store";
+import {setResetAC} from "../state/status-reducer";
+import {counterStateType, incValueAC} from "../state/counter-reducer";
 
-type CounterPropsType = {
-    minValue: number
-    maxValue: number
-    reset: boolean
-    active: boolean
-    setReset: (state: boolean) => void
-    error: boolean
-}
-
-export const Counter = (props: CounterPropsType) => {
-
-    let [value, setValue] = useState<number>(props.minValue)
-
-    useEffect(() => setValue(props.minValue), [props.minValue, props.maxValue])
+export const Counter = () => {
+    const dispatch = useDispatch()
+    let counter = useSelector<AppRootStateType, counterStateType>(state => state.counter)
 
     const incButton = () => {
-        if (value < props.maxValue) {
-            setValue(value + 1)
-            if (value + 1 === props.maxValue) {
-                props.setReset(false)
+        if (counter.count < counter.maxValue) {
+            dispatch(incValueAC())
+            if (counter.count + 1 === counter.maxValue) {
+                dispatch(setResetAC(false))
             }
         }
     }
 
     const resetButton = () => {
-        setValue(props.minValue)
-        props.setReset(true)
+        dispatch(setResetAC(true))
     }
 
-    let className = value === props.maxValue && props.active
+    let className = counter.count === counter.maxValue && counter.active
         ? `${style.counterInput} ${style.counterInputEnd}`
-        : !props.active || props.error
+        : !counter.active || counter.error
             ? `${style.counterInput} ${style.counterInputDefault}`
             : style.counterInput
 
-    let inputValue = props.error
+    let inputValue = counter.error
         ? 'Incorrect value'
-        : props.active
-            ? value
+        : counter.active
+            ? counter.count
             : 'Enter values and press set'
 
     return (
@@ -49,14 +40,14 @@ export const Counter = (props: CounterPropsType) => {
             <div className={style.counterButtonGroup}>
                 <Button name={"inc"}
                         callback={incButton}
-                        disabled={props.active
-                            ? !props.reset
+                        disabled={counter.active
+                            ? !counter.reset
                             : true}
                 />
                 <Button name={"reset"}
                         callback={resetButton}
-                        disabled={props.active
-                            ? props.reset
+                        disabled={counter.active
+                            ? counter.reset
                             : true}
                 />
             </div>
