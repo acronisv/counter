@@ -4,7 +4,7 @@ import {ChangeEvent, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../state/store";
 import {counterStateType, setMaxValueAC, setMinValueAC} from "../state/counter-reducer";
-import {setActiveAC, setErrorAC, setResetAC} from "../state/status-reducer";
+import {setActiveAC, setErrorAC, setResetAC} from "../state/counter-reducer";
 
 export const CounterSettings = () => {
     const dispatch = useDispatch()
@@ -31,7 +31,7 @@ export const CounterSettings = () => {
     const onChangeMaxInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setActiveAC(false))
         dispatch(setMaxValueAC(+e.currentTarget.value))
-        if (+e.currentTarget.value > counter.minValue) {
+        if (+e.currentTarget.value > counter.minValue && counter.minValue >= 0) {
             dispatch(setErrorAC(false))
             setDisabled(false)
         } else {
