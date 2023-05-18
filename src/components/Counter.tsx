@@ -2,8 +2,11 @@ import {Button} from "./Button";
 import style from './Counter.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../state/store";
-import {setResetAC} from "../state/status-reducer";
-import {counterStateType, incValueAC} from "../state/counter-reducer";
+
+import {
+    counterStateType,
+    incValueAC, setResetAC,
+} from "../state/counter-reducer";
 
 export const Counter = () => {
     const dispatch = useDispatch()
